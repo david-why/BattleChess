@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# written by David Wang, 2017
 
 import os, time, pygame
 
@@ -41,9 +42,6 @@ while True:
         else:
           print piece[0], 'win. ()()'
           wav = piece[0] + '.wav'
-      elif last_piece[1] == '0' or piece[1] == '0':
-        print 'The end. ()()'
-        wav = 'End.wav'
       else:
         if piece[1] < last_piece[1]:
           print last_piece[0], 'win. ()()'
@@ -60,4 +58,3 @@ while True:
   last_time = time.time()
 
 print 'Quit.'
-
