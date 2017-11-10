@@ -1,60 +1,45 @@
 #!/usr/bin/python
 # written by David Wang, 2017
 
+#!/usr/bin/python
+
 import os, time, pygame
 
 pygame.mixer.init()
 pygame.mixer.music.load('Start.wav')
 pygame.mixer.music.play()
-last_piece = None
+last_time = 0
 while True:
-  s = raw_input().split(':')
-  print s
-  if len(s) != 2 or s[0] != 'CODE-128': 
-    continue
-  piece = s[1]
-  if last_piece:
-    if last_time < time.time() - 3:
-      last_piece = None
-    else:
-      if piece[0] == last_piece[0]:
-        continue
-      print piece, last_piece,
+  piece = raw_input()
+  print piece
+  if time.time() - last_time < 3: 
+    if piece[0] != last_piece[0]:
+      if piece[1] == '0' and last_piece[1] == '0':
+        break
       if piece[1] == '0' or last_piece[1] == '0':
-        print 'The end. ()()'
-        wav = 'End.wav'
-        if piece[1] == '0' and last_piece[1] == '0':
-          break
+        voice = 'End'
       elif piece[1] == 'B' or last_piece[1] == 'B':
-        print 'Draw. ()()'
-        wav = 'Draw.wav' 
+        voice = 'Draw' 
       elif piece[1] == 'A':
         if last_piece[1] != '1':
-          print piece[0], 'win. ()()'
-          wav = piece[0] + '.wav'
+          voice = piece[0]
         else:
-          print last_piece[0], 'win. ()()'
-          wav = last_piece[0] + '.wav'
+          voice = last_piece[0]
       elif last_piece[1] == 'A':
         if piece[1] != '1':
-          print last_piece[0], 'win. ()()'
-          wav = last_piece[0] + '.wav'
+          voice = last_piece[0]
         else:
-          print piece[0], 'win. ()()'
-          wav = piece[0] + '.wav'
+          voice = piece[0]
       else:
         if piece[1] < last_piece[1]:
-          print last_piece[0], 'win. ()()'
-          wav = last_piece[0] + '.wav'
+          voice = last_piece[0]
         elif piece[1] > last_piece[1]:
-          print piece[0], 'win. ()()'
-          wav = piece[0] + '.wav'
+          voice = piece[0]
         else:
-          print 'Draw. ()()'	
-          wav = 'Draw.wav'
-      pygame.mixer.music.load(wav)
+          voice = 'Draw'
+      pygame.mixer.music.load(voice + '.wav')
       pygame.mixer.music.play()
   last_piece = piece
   last_time = time.time()
+os.system('poweroff')
 
-print 'Quit.'
