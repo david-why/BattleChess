@@ -12,6 +12,8 @@ last_time = 0
 while True:
   piece = raw_input()
   print piece
+  if len(piece) != 2:
+    continue
   if time.time() - last_time < 3: 
     if piece[0] != last_piece[0]:
       if piece[1] == '0' and last_piece[1] == '0':
