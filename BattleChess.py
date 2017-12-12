@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # written by David Wang
 
 import os
@@ -9,7 +9,7 @@ init()
 Sound('Start.wav').play()
 last_time = 0
 while True:
-  piece = input()
+  piece = raw_input()
   if len(piece) != 2:
     continue
   if time() - last_time < 3: 
