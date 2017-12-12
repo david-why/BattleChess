@@ -1,20 +1,18 @@
-#!/usr/bin/python
-# written by David Wang, 2017
+#!/usr/bin/python3
+# written by David Wang
 
-#!/usr/bin/python
+import os
+from time import time
+from pygame.mixer import init, Sound
 
-import os, time, pygame
-
-pygame.mixer.init()
-pygame.mixer.music.load('Start.wav')
-pygame.mixer.music.play()
+init()
+Sound('Start.wav').play()
 last_time = 0
 while True:
-  piece = raw_input()
-  print piece
+  piece = input()
   if len(piece) != 2:
     continue
-  if time.time() - last_time < 3: 
+  if time() - last_time < 3: 
     if piece[0] != last_piece[0]:
       if piece[1] == '0' and last_piece[1] == '0':
         break
@@ -23,15 +21,15 @@ while True:
       elif piece[1] == 'B' or last_piece[1] == 'B':
         voice = 'Draw' 
       elif piece[1] == 'A':
-        if last_piece[1] != '1':
-          voice = piece[0]
-        else:
+        if last_piece[1] == '1':
           voice = last_piece[0]
+        else:
+          voice = piece[0]
       elif last_piece[1] == 'A':
-        if piece[1] != '1':
-          voice = last_piece[0]
-        else:
+        if piece[1] == '1':
           voice = piece[0]
+        else:
+          voice = last_piece[0]
       else:
         if piece[1] < last_piece[1]:
           voice = last_piece[0]
@@ -39,9 +37,8 @@ while True:
           voice = piece[0]
         else:
           voice = 'Draw'
-      pygame.mixer.music.load(voice + '.wav')
-      pygame.mixer.music.play()
+      Sound(voice + '.wav').play()
   last_piece = piece
-  last_time = time.time()
+  last_time = time()
 os.system('poweroff')
 
