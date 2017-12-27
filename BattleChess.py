@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # written by David Wang
 
-import os
 from time import time
 from pygame.mixer import init, Sound
 
@@ -40,5 +39,4 @@ while True:
       Sound(voice + '.wav').play()
   last_piece = piece
   last_time = time()
-os.system('poweroff')
 
